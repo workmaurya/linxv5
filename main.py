@@ -54,8 +54,9 @@ LINX_THEME = {
     "status_offline": "#ff0041",
 }
 
-GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY", "")  # Set via environment variable
-MODEL_NAME = "gemini-2.0-flash"  # Updated model name
+# Try to get API key from environment (works after PowerShell restart)
+GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY", "")
+MODEL_NAME = "gemini-2.0-flash"
 SAMPLE_RATE = 16000
 CHUNK_SIZE = 1024
 
@@ -625,7 +626,7 @@ class LINXApp(ctk.CTk):
 
         # Center: Clock & Date
         center_frame = ctk.CTkFrame(self.top_bar, fg_color="transparent")
-        center_frame.grid(row=0, column=1, sticky="center")
+        center_frame.grid(row=0, column=1, sticky="ew")
 
         self.clock_label = ctk.CTkLabel(
             center_frame, text="00:00:00", font=("Courier", 12),
@@ -746,7 +747,7 @@ class LINXApp(ctk.CTk):
             reactor_frame, image=self.reactor_image, text="",
             fg_color="transparent"
         )
-        self.reactor_label.grid(row=0, column=0, sticky="center")
+        self.reactor_label.grid(row=0, column=0, sticky="nsew")
 
         # Status text
         self.status_text = ctk.CTkLabel(
@@ -1015,9 +1016,12 @@ if __name__ == "__main__":
     if not GOOGLE_API_KEY:
         print("\n" + "="*60)
         print("WARNING: GOOGLE_API_KEY environment variable not set!")
-        print("Set it with: set GOOGLE_API_KEY=your_api_key")
+        print("Set it with: setx GOOGLE_API_KEY your_api_key")
+        print("Or in current PowerShell: $env:GOOGLE_API_KEY='your_api_key'")
         print("Get your API key at: https://aistudio.google.com/app/apikey")
         print("="*60 + "\n")
+    else:
+        print(f"✓ API Key loaded: {GOOGLE_API_KEY[:20]}...")
 
     app = LINXApp()
     app.mainloop()
