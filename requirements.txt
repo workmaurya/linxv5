@@ -1,0 +1,11 @@
+customtkinter==5.2.2
+pillow==10.1.0
+sounddevice==0.4.6
+SpeechRecognition==3.10.0
+pyttsx3==2.90
+psutil==5.9.6
+google-genai==0.4.1
+pycaw==20230407
+pyautogui==0.9.54
+opencv-python==4.8.1.78
+requests==2.31.0
